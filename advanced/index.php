@@ -162,7 +162,9 @@ function queryAds($serverName) {
     // Determine the time it takes while querying adlists
     $preQueryTime = microtime(true)-$_SERVER["REQUEST_TIME_FLOAT"];
     $queryAdsURL = sprintf(
-        "http://127.0.0.1:%s/admin/scripts/pi-hole/php/queryads.php?domain=%s&bp",
+        "%s://%s:%s/admin/scripts/pi-hole/php/queryads.php?domain=%s&bp",
+        isset($_SERVER['HTTPS']) && !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http',
+        $serverName,
         $_SERVER["SERVER_PORT"],
         $serverName
     );
